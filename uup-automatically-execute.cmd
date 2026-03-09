@@ -5,16 +5,16 @@ title uup镜像自动下载整合
 cd /d "%~dp0"
 set "PATH=%cd%\bin;%PATH%"
 
-set lang=zh-cn
 set start-time=%time%
 
 if exist "%~dp0uup_file" rd /s /q "%~dp0uup_file"
 md "%~dp0uup_file"
-for /f "tokens=1,2 delims= " %%a in (%~dp0version.txt) do (
+for /f "tokens=1-3 delims= " %%a in (%~dp0version.txt) do (
 	cls
 	echo 准备整合 %%a %%b
 	timeout /t 10 /nobreak
 	set arch=%%b
+	set lang=%%c
 	call :start %%a
 )
 cls
