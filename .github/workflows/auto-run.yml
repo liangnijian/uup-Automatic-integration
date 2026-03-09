@@ -18,3 +18,4 @@ jobs:
         with:
           name: iso-file
           path: "*.iso"
+          if-no-files-found: error
