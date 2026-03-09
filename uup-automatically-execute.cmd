@@ -50,4 +50,9 @@ cls
 pushd "%~dp0%filename:~0,-4%"
 echo 0|call "%~dp0uup_file\%filename:~0,-4%\uup_download_windows.cmd"
 popd
+
+rem ÒÆ¶¯ ISO
+for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do (
+	move /y "%%i" "%~dp0%%~nxi"
+)
 goto :EOF
