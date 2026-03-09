@@ -40,7 +40,7 @@ jobs:
               echo "executed=false" >> $env:GITHUB_OUTPUT
           }
 
-      - name: 上传生成的产物
+      - name: 上传ISO
         if: steps.check-date.outputs.executed == 'true'   # 仅在执行了批处理时才上传
         uses: actions/upload-artifact@v4
         with:
