@@ -11,15 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 安装7z
-        run: choco install 7zip -y
-
-      - name: 设置 ANSI 输出
-        run: |
-          $console = $host.UI.RawUI
-          $null = $console.ForegroundColor  # 触发初始化
-        shell: powershell
-
       - name: 运行批处理
         run: .\uup-automatically-execute.cmd
         shell: cmd
