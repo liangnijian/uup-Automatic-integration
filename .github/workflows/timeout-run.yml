@@ -1,0 +1,22 @@
+name: 自动执行-到点自动执行
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 运行批处理
+        run: .\uup-timeout-run.cmd
+        shell: cmd
+
+      - name: 上传ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: iso-file
+          path: "*.iso"
