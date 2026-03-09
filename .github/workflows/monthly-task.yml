@@ -1,0 +1,51 @@
+name: 每月第二个星期三凌晨 02:30 执行
+
+on:
+  schedule:
+    - cron: '30 18 * * *'      # 每天 UTC 18:30（北京时间次日 2:30）
+  workflow_dispatch:
+
+jobs:
+  run-batch:
+    runs-on: windows-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 判断今天是否为北京时间的第二个星期三
+        id: check-date          # 给步骤加一个 ID，便于后面引用
+        shell: pwsh
+        run: |
+          $utcNow = (Get-Date).ToUniversalTime()
+          $beijingNow = $utcNow.AddHours(8)
+          Write-Host "当前北京时间: $beijingNow"
+
+          if ([int]$beijingNow.DayOfWeek -eq 3) {
+              $firstDayOfMonth = Get-Date -Year $beijingNow.Year -Month $beijingNow.Month -Day 1
+              $daysToFirstWed = (3 - [int]$firstDayOfMonth.DayOfWeek + 7) % 7
+              $firstWednesday = $firstDayOfMonth.AddDays($daysToFirstWed)
+              $secondWednesday = $firstWednesday.AddDays(7)
+
+              if ($beijingNow.Date -eq $secondWednesday.Date) {
+                  Write-Host "今天是第二个星期三，开始执行批处理..."
+                  .\uup-automatically-execute.cmd
+                  echo "executed=true" >> $env:GITHUB_OUTPUT   # 设置输出变量，表示已执行
+              } else {
+                  Write-Host "不是第二个星期三，跳过。"
+                  echo "executed=false" >> $env:GITHUB_OUTPUT
+              }
+          } else {
+              Write-Host "今天不是星期三，跳过。"
+              echo "executed=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: 上传生成的产物
+        if: steps.check-date.outputs.executed == 'true'   # 仅在执行了批处理时才上传
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-output
+          path: |
+            *.iso
+            output/
+          if-no-files-found: warn
