@@ -1,4 +1,4 @@
-name: Build ISO
+name: 运行批处理
 
 on:
   push:
@@ -10,15 +10,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
+      - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: Run batch script
+      - name: 运行 uup-automatically-execute.cmd
         run: .\uup-automatically-execute.cmd
 
-      - name: Upload ISO artifact
+      - name: 上传 ISO
         uses: actions/upload-artifact@v4
         with:
-          name: my-iso-file
+          name: uup-iso
           path: |
             *.iso
