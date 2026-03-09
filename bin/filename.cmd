@@ -1,6 +1,6 @@
 :readfilename
 cls
-echo »ñÈ¡ÏÂÔØÎÄ¼şÃû
+echo è·å–ä¸‹è½½æ–‡ä»¶å
 timeout /t 5 /nobreak
 
 set "uupfile=https://uupdump.net/get.php?id=%updateId%&pack=%lang%&edition=professional%%3Bcore&autodl=2"

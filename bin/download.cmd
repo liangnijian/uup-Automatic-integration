@@ -2,10 +2,10 @@ set position=%~1
 
 :download
 cls
-echo 正在下载 %filename%
+echo 姝ｅ湪涓嬭浇 %filename%
 powershell -command "Invoke-WebRequest -Uri '%uupfile%' -OutFile '%position%'"
 if not exist "%position%" (
-	echo 准备重新下载
+	echo 鍑嗗閲嶆柊涓嬭浇
 	timeout /t 5 /nobreak
 	goto :download
 )
