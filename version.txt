@@ -1,3 +1,0 @@
-26200 amd64 zh-cn
-22631 amd64 zh-cn
-19045 amd64 zh-cn
