@@ -17,7 +17,8 @@ md "%~dp0uup_file"
 for /f "tokens=1,2 delims= " %%a in (%~dp0version.txt) do (
 	cls
 	echo 准备整合 %%a %%b
-	timeout /t 10 /nobreak
+	rem timeout /t 10 /nobreak
+	ping -n 10 127.0.0.1>>nul
 	set arch=%%b
 	call :start %%a
 )
@@ -58,3 +59,4 @@ for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do (
 	move /y "%%i" "%~dp0%%~nxi"
 )
 goto :EOF
+
