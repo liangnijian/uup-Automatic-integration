@@ -6,6 +6,7 @@ cls
 echo %h%:%m% 自动运行……
 for /f "tokens=1-2 delims=: " %%a in ("%time%") do set hm=%%a%%b
 if not "%h%%m%"=="%hm%" (
-	timeout /t 60 /nobreak
+	timeout /t 60 /nobreak>>nul
 	goto :hm-out
 )
+
