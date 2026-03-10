@@ -8,7 +8,8 @@ if %build% gtr 19045 set "condition=build=.*%build%.*%arch%"
 :readID
 cls
 echo 正在查询 %build% %arch% 的信息……
-timeout /t 5 /nobreak
+rem timeout /t 5 /nobreak
+ping -n 5 127.0.0.1>>nul
 
 for /f "delims=" %%a in ('powershell -command "Invoke-RestMethod -Uri '%uupurl%' | ConvertTo-Json" ^| findstr /i "%condition%"') do (
 	set uuid=%%a
@@ -27,3 +28,4 @@ for /f "tokens=2 delims={}" %%b in ("!uuid!") do (
 	)
 )
 if "%updateId%"=="" goto :readID
+
