@@ -1,0 +1,24 @@
+name: 每周三运行
+
+on:
+  schedule:
+    # UTC时间每周三 18:30 运行，对应北京时间每周三 02:30
+    - cron: '30 18 * * 3'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 运行批处理
+        run: .\uup-weekly-run.cmd
+        shell: cmd
+
+      - name: 上传ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: iso-file
+          path: "*.iso"
+          if-no-files-found: error
