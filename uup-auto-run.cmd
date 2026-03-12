@@ -22,7 +22,7 @@ cls
 echo 完成
 echo 开始时间：%start-time%
 echo 结束时间：%time%
-pause
+rem pause
 goto :EOF
 
 :start
@@ -56,6 +56,7 @@ for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do (
 	move /y "%%i" "%~dp0%%~nxi"
 )
 goto :EOF
+
 
 
 
