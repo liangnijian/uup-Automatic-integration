@@ -28,7 +28,7 @@ jobs:
 
       - name: 上传ISO
         if: steps.check_iso.outputs.iso_exists == 'true'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: iso-file
           path: "*.iso"
