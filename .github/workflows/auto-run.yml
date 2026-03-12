@@ -7,14 +7,14 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: 运行批处理
         run: .\uup-auto-run.cmd
         shell: cmd
 
       - name: 上传ISO
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: iso-file
           path: "*.iso"
