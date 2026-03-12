@@ -4,6 +4,8 @@
 
 uup-Automatic-integration 是用于本地自动下载运行 uup 脚本整合镜像，通过 version.txt 的配置内容整合对应版本
 
+需要注意是：github actions 运行时长不能超过六小时
+
 
 ### 文件说明
 
