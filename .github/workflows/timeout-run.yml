@@ -1,4 +1,5 @@
 name: 自动执行-到点自动执行
+# 运行时长不能超过六小时
 
 on:
   workflow_dispatch:
