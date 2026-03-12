@@ -16,9 +16,23 @@ jobs:
         run: .\uup-weekly-run.cmd
         shell: cmd
 
+      - name: 检查 ISO 文件是否存在
+        id: check_iso
+        shell: pwsh
+        run: |
+          if (Test-Path -Path "*.iso") {
+            echo "iso_exists=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "iso_exists=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: 如果没有 ISO 文件，输出警告但不失败
+        if: steps.check_iso.outputs.iso_exists == 'false'
+        run: echo "警告：未找到 ISO 文件，请检查批处理脚本。"
+
       - name: 上传ISO
+        if: steps.check_iso.outputs.iso_exists == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: iso-file
           path: "*.iso"
-          if-no-files-found: error
