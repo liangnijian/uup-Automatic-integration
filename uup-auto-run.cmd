@@ -1,8 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-tzutil /s "China Standard Time"
-
 title uup镜像自动下载整合
 cd /d "%~dp0"
 set "PATH=%cd%\bin;%PATH%"
@@ -58,5 +56,6 @@ for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do (
 	move /y "%%i" "%~dp0%%~nxi"
 )
 goto :EOF
+
 
 
