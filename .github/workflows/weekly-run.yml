@@ -26,10 +26,6 @@ jobs:
             echo "iso_exists=false" >> $env:GITHUB_OUTPUT
           }
 
-      - name: 如果没有 ISO 文件，输出警告但不失败
-        if: steps.check_iso.outputs.iso_exists == 'false'
-        run: echo "警告：未找到 ISO 文件，请检查批处理脚本。"
-
       - name: 上传ISO
         if: steps.check_iso.outputs.iso_exists == 'true'
         uses: actions/upload-artifact@v4
