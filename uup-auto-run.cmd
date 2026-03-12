@@ -52,11 +52,8 @@ pushd "%~dp0%filename:~0,-4%"
 echo 0|call "%~dp0uup_file\%filename:~0,-4%\uup_download_windows.cmd"
 popd
 
-for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do (
-	move /y "%%i" "%~dp0%%~nxi"
-)
+for %%i in (%~dp0uup_file\%filename:~0,-4%\*.iso) do move /y "%%i" "%~dp0%%~nxi"
+
+rd /s /q "%~dp0uup_file\%filename:~0,-4%"
+del /f /a /q "%~dp0uup_file\%filename%"
 goto :EOF
-
-
-
-
