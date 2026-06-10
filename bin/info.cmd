@@ -1,15 +1,21 @@
 set build=%~1
 set "uupurl=https://api.uupdump.net/listid.php?search=%build%&sortByDate=1"
 
-set condition=
-if %build% leq 19045 set "condition=Feature.*build=.*%build%.*%arch%"
-if %build% gtr 19045 set "condition=build=.*%build%.*%arch%"
+set "condition=title=Windows.*version.*build=.*%build%.*%arch%"
+if "%build%"=="17763" set "condition=Feature.*version.1809.*build=.*%build%.*%arch%"
+if "%build%"=="19044" set "condition=Feature.*version.21h2.*build=.*%build%.*%arch%"
+if "%build%"=="19045" set "condition=Feature.*version.22h2.*build=.*%build%.*%arch%"
+if "%build%"=="22000" set "condition=title=Windows.11.*build=.*%build%.*%arch%"
+if "%build%"=="22621" set "condition=title=Windows.11,.*version.22h2.*build=.*%build%.*%arch%"
+if "%build%"=="22631" set "condition=title=Windows.11,.*version.23h2.*build=.*%build%.*%arch%"
+if "%build%"=="26100" set "condition=title=Windows.11,.*version.24h2.*build=.*%build%.*%arch%"
+if "%build%"=="26200" set "condition=title=Windows.11,.*version.25h2.*build=.*%build%.*%arch%"
+if "%build%"=="28000" set "condition=title=Windows.11,.*version.26h1.*build=.*%build%.*%arch%"
 
 :readID
 cls
 echo 正在查询 %build% %arch% 的信息……
-rem timeout /t 5 /nobreak
-ping -n 5 127.0.0.1>>nul
+timeout /t 5 /nobreak
 
 for /f "delims=" %%a in ('powershell -command "Invoke-RestMethod -Uri '%uupurl%' | ConvertTo-Json" ^| findstr /i "%condition%"') do (
 	set uuid=%%a
@@ -28,4 +34,3 @@ for /f "tokens=2 delims={}" %%b in ("!uuid!") do (
 	)
 )
 if "%updateId%"=="" goto :readID
-
